@@ -1,68 +1,79 @@
 import turtle
-import math
 
 class Graph:
-    def __init__(self, nodes, edges):
-        self.nodes = nodes              # List of node labels, e.g. ['A', 'B', 'C', 'D']
-        self.edges = edges              # List of tuple edges, e.g. [('A', 'B'), ('A', 'C')]
-        self.node_pos = {}             # Posisi node di layar
-        self.radius = 200              # Radius lingkaran tata letak
+    def __init__(self):
         self.t = turtle.Turtle()
         self.t.speed(0)
         self.t.hideturtle()
         self.t.pensize(2)
         self.screen = turtle.Screen()
-        self.screen.title("Visualisasi Graph (Teori Graf)")
+        self.screen.title("Graf Persegi Panjang dengan Diagonal (e5)")
 
-    def atur_posisi_node(self):
-        # Menempatkan node secara melingkar
-        sudut_total = 360
-        sudut_per_node = sudut_total / len(self.nodes)
-        for i, node in enumerate(self.nodes):
-            sudut = math.radians(sudut_per_node * i)
-            x = self.radius * math.cos(sudut)
-            y = self.radius * math.sin(sudut)
-            self.node_pos[node] = (x, y)
+        # Koordinat simpul secara manual untuk meniru bentuk gambar
+        self.positions = {
+            'A': (-150, 100),
+            'B': (-150, -100),
+            'C': (150, -100),
+            'D': (150, 100)
+        }
 
-    def gambar_edges(self):
-        for node1, node2 in self.edges:
-            x1, y1 = self.node_pos[node1]
-            x2, y2 = self.node_pos[node2]
-            self.t.penup()
-            self.t.goto(x1, y1)
-            self.t.pendown()
-            self.t.goto(x2, y2)
+        # Daftar edge dan label
+        self.edges = [
+            ('A', 'B', 'e1'),
+            ('B', 'C', 'e2'),
+            ('A', 'D', 'e3'),
+            ('C', 'D', 'e4'),
+            ('B', 'D', 'e5')  # diagonal
+        ]
 
-    def gambar_nodes(self):
-        for node, (x, y) in self.node_pos.items():
-            self.t.penup()
-            self.t.goto(x, y - 10)  # supaya lingkaran pas di tengah
-            self.t.pendown()
-            self.t.fillcolor("lightblue")
-            self.t.begin_fill()
-            self.t.circle(20)
-            self.t.end_fill()
-            self.t.penup()
-            self.t.goto(x, y + 5)
-            self.t.write(node, align="center", font=("Arial", 12, "bold"))
+    def gambar_edge(self, node1, node2, label):
+        x1, y1 = self.positions[node1]
+        x2, y2 = self.positions[node2]
+
+        # Gambar garis
+        self.t.penup()
+        self.t.goto(x1, y1)
+        self.t.pendown()
+        self.t.goto(x2, y2)
+
+        # Hitung posisi tengah untuk label edge
+        mid_x = (x1 + x2) / 2
+        mid_y = (y1 + y2) / 2
+
+        # Geser label sedikit agar tidak menabrak garis
+        offset = 10 if label != "e5" else -15
+        self.t.penup()
+        self.t.goto(mid_x, mid_y + offset)
+        self.t.write(label, align="center", font=("Arial", 10, "normal"))
+
+    def gambar_node(self, label, pos):
+        x, y = pos
+        self.t.penup()
+        self.t.goto(x, y - 10)
+        self.t.pendown()
+        self.t.fillcolor("lightblue")
+        self.t.begin_fill()
+        self.t.circle(15)
+        self.t.end_fill()
+        self.t.penup()
+        self.t.goto(x, y + 5)
+        self.t.write(label, align="center", font=("Arial", 12, "bold"))
 
     def gambar_graph(self):
-        self.atur_posisi_node()
-        self.gambar_edges()
-        self.gambar_nodes()
+        # Gambar semua edge
+        for node1, node2, label in self.edges:
+            self.gambar_edge(node1, node2, label)
+
+        # Gambar semua simpul
+        for label, pos in self.positions.items():
+            self.gambar_node(label, pos)
+
         self.screen.exitonclick()
 
 # Program utama
 if __name__ == "__main__":
-    nodes = ['A', 'B', 'C', 'D']
-    edges = [('A', 'B'), ('A', 'C'), ('B', 'D'), ('C', 'D')]
-    
-    g = Graph(nodes, edges)
+    g = Graph()
     g.gambar_graph()
-
-
-
-
 
 
 
