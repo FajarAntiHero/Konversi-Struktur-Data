@@ -12,7 +12,7 @@ class Graph:
         if ke not in self.graph[dari]:
             self.graph[dari].append(ke)
         if dari not in self.graph[ke]:
-            self.graph[ke].append(dari)  # Jika graf tidak berarah
+            self.graph[ke].append(dari)   # Jika graf tidak berarah
 
     def buat_dari_list(self, data_list):
         for pasangan in data_list:
