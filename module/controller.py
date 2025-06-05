@@ -51,9 +51,9 @@ class Controller:
                 case "2":
                     self.__object = ""
                 case "3":
-                    self.__object = qu(self.__assignObject.getData)
+                    self.__object =  st(self.__assignObject.getData)
                 case "4":
-                    self.__object = st(self.__assignObject.getData)
+                    self.__object = qu(self.__assignObject.getData)
                 case "5":
                     self.__object = ""
 

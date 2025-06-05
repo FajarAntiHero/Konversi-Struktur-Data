@@ -1,65 +1,91 @@
+from .property import Property as pr
+
 class Stack:
-    def __init__(self):
-        self.items = []
+    def __init__(self, data: list):
+        self.__items: list = data
+
+    @property
+    def getDataStack(self) -> list:
+        return self.__items
+
+    @getDataStack.setter
+    def push(self, item):
+        while True:
+            try:
+                self.__items.append(item)
+                pr.customPrint("{:^100}".format(f"Ditambahkan {item} ke dalam data"), 'blue')
+                print(pr.singleLine)
+                break
+            except TypeError:
+                pass
 
     def is_empty(self):
-        return len(self.items) == 0
-
-    def push(self, item):
-        self.items.append(item)
-        print(f'Pushed: {item}')
-
-    def pop(self):
+        return len(self.__items) == 0
+    
+    def popData(self) -> None:
         if not self.is_empty():
-            popped_item = self.items.pop()
-            print(f'Popped: {popped_item}')
-            return popped_item
+            popped_item = self.__items.pop()
+            self.__items == popped_item
+            pr.customPrint("{:^100}".format(f"Diambil {popped_item} dari data paling atas"), 'blue')
+            print(pr.singleLine)
         else:
-            print('Stack is empty!')
+            print("{:^100}".format("Data kosong! Tidak Ada yang bisa diambil".upper()))
+            print(pr.singleLine)
 
-    def peek(self):
+    def peekTopItem(self):
         if not self.is_empty():
-            print(f'Top item: {self.items[-1]}')
-            return self.items[-1]
+            pr.customPrint("{:^100}".format(f"Data Paling atas : {self.__items[-1]}"), 'blue')
+            print(pr.singleLine)
         else:
-            print('Stack is empty!')
+            print("{:^100}".format("Data kosong! Tidak Ada data yang paling atas".upper()))
+            print(pr.singleLine)
 
-    def size(self):
-        return len(self.items)
+    def lengthData(self):
+        pr.customPrint("{:^100}".format(f"Panjang Data : {len(self.__items)}".upper()), 'blue')
+        print(pr.singleLine)
 
-    def display(self):
-        print('Stack:', self.items)
+    def showData(self):
+        pr.customPrint("{:^100}".format(f"Isi Stack : {self.__items}"), 'blue')
+        print(pr.singleLine)
 
-def menu():
-    print("\nStack Operations Menu")
-    print("1. Push (Tambah data ke stack)")
-    print("2. Pop (Hapus data teratas stack)")
-    print("3. Peek (Lihat data teratas stack)")
-    print("4. Lihat isi stack")
-    print("5. Ukuran stack")
-    print("6. Keluar")
+    def main(self) -> None:
+        while True:
+            pr.clearTerminal()
+            pr.dynamicHeader("program konversi bentuk data")
+            pr.dynamicSubHeader("Konversi menjadi Stack")
+            pr.customPrint("{:<100}".format("1. Push (Tambah data ke stack)"), 'blue')
+            pr.customPrint("{:<100}".format("2. Pop (Hapus data teratas stack)"), 'blue')
+            pr.customPrint("{:<100}".format("3. Peek (Lihat data teratas stack)"), 'blue')
+            pr.customPrint("{:<100}".format("4. Show (Lihat isi stack)"), 'blue')
+            pr.customPrint("{:<100}".format("5. Size (Ukuran stack)"), 'blue')
+            
+            print(pr.singleLine)
+            try:
+                choice = str(input("Pilih operasi [1/2/3/4/5]: "))
+                print(pr.singleLine)
+                if choice == '1':
+                    data = int(input("Masukkan data yang ingin dimasukkan ke stack: "))
+                    print(pr.singleLine)
+                    self.push = data
+                elif choice == '2':
+                    self.popData()
+                elif choice == '3':
+                    self.peekTopItem()
+                elif choice == '4':
+                    self.showData()
+                elif choice == '5':
+                    self.lengthData()
+                else:
+                    print("{:^100}".format("Pilihan tidak valid!".upper()))
+            except TypeError:
+                pass
 
-def main():
-    stack = Stack()
-    while True:
-        menu()
-        choice = input("Pilih operasi (1-6): ")
-        
-        if choice == '1':
-            data = input("Masukkan data yang ingin dimasukkan ke stack: ")
-            stack.push(data)
-        elif choice == '2':
-            stack.pop()
-        elif choice == '3':
-            stack.peek()
-        elif choice == '4':
-            stack.display()
-        elif choice == '5':
-            print(f'Ukuran stack: {stack.size()}')
-        elif choice == '6':
-            print("Keluar dari program. Terima kasih!")
-            break
-        else:
-            print("Pilihan tidak valid, coba lagi.")
-
-main()
+            is_continue = str(input("{:<50}".format("Lanjutkan Mengubah Data? [Y/N] : ")))
+            if is_continue == "N" or is_continue == "n":
+                break
+            elif is_continue == "Y" or is_continue == "y":
+                continue
+            else:
+                print("{:^100}".format("Input Data Tidak Sesuai!".upper()))
+            
+            

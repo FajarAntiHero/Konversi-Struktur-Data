@@ -1,4 +1,6 @@
-from module import Property # Import Class Property
+from module import Property, Controller
+# Import Class Property
+
 class Main:
     programDescription = (
         "Program ini digunakan untuk melakukan konversi bentuk data antara tipe data yang berbeda "
@@ -19,7 +21,7 @@ class Main:
         while True:
             confirmStartProgram = str(input("Mulai Program? [Y/N] : "))
             if confirmStartProgram == "Y" or confirmStartProgram == "Yes" or confirmStartProgram == "y":
-                object = Property()
+                object = Controller()
                 object.main()
                 break
             elif confirmStartProgram == "N" or confirmStartProgram == "No" or confirmStartProgram == "n":
