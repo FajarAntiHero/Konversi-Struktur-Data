@@ -1,70 +1,79 @@
+from .property import Property as pr
+
 class Node:
     def __init__(self, initdata):
-        self.data = initdata
-        self.next = None
+        self.__data = initdata
+        self.__next = None
 
     def getdata(self):
-        return self.data
+        return self.__data
 
     def getnext(self):
-        return self.next
+        return self.__next
 
     def setdata(self, newdata):
-        self.data = newdata
+        self.__data = newdata
 
     def setnext(self, newnext):
-        self.next = newnext
+        self.__next = newnext
 
 
-class OrderedList:
-    def __init__(self):
-        self.head = None
+class LinkedList:
+    def __init__(self, data = 0):
+        self.__head = None
+        self.__data = data
 
     def isEmpty(self):
-        return self.head is None
+        return self.__head is None
 
     def add(self, item):
-        temp = Node(item)
-        temp.setnext(self.head)
-        self.head = temp
+        temp: Node = Node(item)
+        temp.setnext(self.__head)
+        self.__head = temp
+        pr.customPrint("{:^100}".format(f"Data [{item}] telah ditambahkan ke Linked List"), 'blue')
+        print(pr.singleLine)
 
     def size(self):
-        current = self.head
+        current = self.__head
         count = 0
         while current is not None:
             count += 1
             current = current.getnext()
-        return count
+        pr.customPrint("{:^100}".format(f"Panjang Data pada Linked List : {count}"), 'blue')
+        print(pr.singleLine)
 
     def show(self):
-        current = self.head
-        print("Head ->", end=" ")
+        current = self.__head
+        pr.customPrint("Head", "blue", end="")
+        pr.customPrint(" -> ", "green", end="")
         while current is not None:
-            print(current.getdata(), end=" -> ")
+            pr.customPrint(current.getdata(), "blue", end="")
+            pr.customPrint(" -> ", "green", end="")
             current = current.getnext()
-        print("None")
+        pr.customPrint("None", "blue")
+        print(pr.singleLine)
 
-    def search(self):
-        current = self.head
-        s = input("Masukkan data yang akan dicari: ")
+    def search(self, data):
+        current = self.__head
         found = False
         while current is not None:
-            if current.getdata() == s:
+            if current.getdata() == data:
                 found = True
                 break
             current = current.getnext()
         if found:
-            print("Data ditemukan!")
+            pr.customPrint("{:^100}".format(f"Data Ditemukan!"), 'blue')
+            print(pr.singleLine)
         else:
-            print("Data tidak ditemukan!")
+            pr.customPrint("{:^100}".format(f"Data Tidak Ditemukan!"), 'blue')
+            print(pr.singleLine)
 
-    def remove(self):
-        current = self.head
-        s = input("Masukkan data yang akan dihapus: ")
+    def remove(self, data):
+        current = self.__head
         found = False
         previous = None
         while current is not None:
-            if current.getdata() == s:
+            if current.getdata() == data:
                 found = True
                 break
             previous = current
@@ -72,84 +81,91 @@ class OrderedList:
 
         if found:
             if previous is None:
-                self.head = current.getnext()
+                self.__head = current.getnext()
             else:
                 previous.setnext(current.getnext())
-            print("Data sudah dihapus")
+            pr.customPrint("{:^100}".format(f"Data [{data}] sudah dihapus"), 'blue')
+            print(pr.singleLine)
         else:
-            print("Data yang akan dihapus tidak ditemukan!")
+            pr.customPrint("{:^100}".format(f"Data Tidak Ditemukan!"), 'blue')
+            print(pr.singleLine)
+    
+    # def sort(self, item):
+    #     for i in range(len(item) - 1, 0, -1):
+    #         for j in range(i):
+    #             if int(item[j]) > int(item[j+1]):
+    #                 item[j], item[j+1] = item[j+1], item[j]
+    #     return item
 
-    def ganjil(self, item):
-        ol = OrderedList()
-        for i in range(len(item)):
-            if int(item[i]) % 2 != 0:
-                ol.add(str(item[i]))
-        return ol
+    # def ganjil(self, item):
+    #     ol = LinkedList()
+    #     for i in range(len(item)):
+    #         if int(item[i]) % 2 != 0:
+    #             ol.add(str(item[i]))
+    #     return ol
 
-    def genap(self, item):
-        ol = OrderedList()
-        for i in range(len(item)):
-            if int(item[i]) % 2 == 0:
-                ol.add(str(item[i]))
-        return ol
-
-    def sort(self, item):
-        for i in range(len(item) - 1, 0, -1):
-            for j in range(i):
-                if int(item[j]) > int(item[j+1]):
-                    item[j], item[j+1] = item[j+1], item[j]
-        return item
-
-    def tambahlist(self, item):
-        pl = OrderedList()
-        for i in range(len(item)):
-            pl.add(str(item[i]))
-        return pl
+    # def genap(self, item):
+    #     ol = LinkedList()
+    #     for i in range(len(item)):
+    #         if int(item[i]) % 2 == 0:
+    #             ol.add(str(item[i]))
+    #     return ol
 
 
-# =============================
-# MAIN PROGRAM
-# =============================
+    # def tambahlist(self, item):
+    #     pl = LinkedList()
+    #     for i in range(len(item)):
+    #         pl.add(str(item[i]))
+    #     return pl
+    
+    def main(self):
+        if len(self.__data) > 1:
+            for iterator in self.__data:
+                self.add(iterator)
 
-ol = OrderedList()
+        while True:            
+            pr.clearTerminal()
+            pr.dynamicHeader("program konversi bentuk data")
+            pr.dynamicSubHeader("Konversi menjadi Linked List")
+            pr.customPrint("{:<100}".format("1. Add (Tambah data ke Linked List)"), 'blue')
+            pr.customPrint("{:<100}".format("2. Search (Cari Data Pada Linked List)"), 'blue')
+            # pr.customPrint("{:<100}".format("3. Sort (Urutkan Data Linked List)"), 'blue')
+            pr.customPrint("{:<100}".format("3. Remove (Hapus Data Pada Linked List)"), 'blue')
+            pr.customPrint("{:<100}".format("4. Show (Lihat Ukuran Linked List)"), 'blue')
+            pr.customPrint("{:<100}".format("5. Size (Lihat Panjang Data Linked List)"), 'blue')
 
-while True:
-    tam = input("Masukkan data: ")
-    ol.add(tam)
-    lagi = input("Apakah Anda mau memasukkan data lagi? [Y/T]: ")
-    if lagi.upper() != 'Y':
-        break
+            print(pr.singleLine)
 
-print("\nData dalam linked list:")
-ol.show()
-print(f"Panjang datanya adalah: {ol.size()}")
+            try:
+                choice = str(input("Pilih operasi [1/2/3/4/5]: "))
+                print(pr.singleLine)
+                if choice == '1':
+                    data: int = int(input("Masukkan data yang ingin dimasukkan ke Linked List: "))
+                    print(pr.singleLine)
+                    self.add(data)
+                elif choice == '2':
+                    data: int = int(input("Masukkan data yang ingin dicari: "))
+                    print(pr.singleLine)
+                    self.search(data)
+                # elif choice == '3':
+                #     self.sort()
+                elif choice == '3':
+                    data: int = int(input("Masukkan data yang ingin dihapus: "))
+                    print(pr.singleLine)
+                    self.remove(data)
+                elif choice == '4':
+                    self.show()
+                elif choice == '5':
+                    self.size()
+                else:
+                    print("{:^100}".format("Pilihan tidak valid!".upper()))
+            except TypeError:
+                pass
 
-# Contoh data tambahan
-ls = [
-    '111001', '110001', '1110002', '1110003', '1110004',
-    '1110005', '1110006', '1110007', '1110008', '1110009'
-]
-
-# Pemisahan ganjil/genap
-ganjil = ol.ganjil(ls)
-genap = ol.genap(ls)
-
-# Gabungkan list
-merge = ganjil
-current = genap.head
-while current is not None:
-    merge.add(current.getdata())
-    current = current.getnext()
-
-print("\nData setelah digabung:")
-merge.show()
-
-# Urutkan data
-sorted_list = ol.sort(ls)
-print("\nData setelah disortir:")
-print(sorted_list)
-
-# Tambahkan list hasil sort ke linked list baru
-sorted_linked = ol.tambahlist(sorted_list)
-print("\nLinked list dari data yang disortir:")
-sorted_linked.show()
+            is_continue = str(input("{:<50}".format("Lanjutkan Mengubah Data? [Y/N] : ")))
+            if is_continue == "N" or is_continue == "n":
+                break
+            elif is_continue == "Y" or is_continue == "y":
+                continue
+            else:
+                print("{:^100}".format("Input Data Tidak Sesuai!".upper()))

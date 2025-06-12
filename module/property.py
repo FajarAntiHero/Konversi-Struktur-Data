@@ -42,7 +42,7 @@ class Property:
         tm.sleep(time)
 
     @classmethod
-    def customPrint(cls, value: str, color: str):
-        print(colored(value, color))
+    def customPrint(cls, value: str, color: str, end: str = "\n"):
+        print(colored(value, color), end=end)
 
     

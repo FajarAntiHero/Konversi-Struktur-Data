@@ -2,6 +2,7 @@ from .property import Property
 from .model import Model
 from .stack import Stack as st
 from .queue import Queue as qu
+from .linked_list import LinkedList as lkd
 import colorama
 import termcolor
 
@@ -49,7 +50,7 @@ class Controller:
                 case "1":
                     self.__object = ""
                 case "2":
-                    self.__object = ""
+                    self.__object = lkd(self.__assignObject.getData)
                 case "3":
                     self.__object =  st(self.__assignObject.getData)
                 case "4":
