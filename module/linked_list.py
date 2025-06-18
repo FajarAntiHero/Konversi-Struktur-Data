@@ -133,6 +133,7 @@ class LinkedList:
             pr.customPrint("{:<100}".format("3. Remove (Hapus Data Pada Linked List)"), 'blue')
             pr.customPrint("{:<100}".format("4. Show (Lihat Ukuran Linked List)"), 'blue')
             pr.customPrint("{:<100}".format("5. Size (Lihat Panjang Data Linked List)"), 'blue')
+            pr.customPrint("{:<100}".format("0. Keluar Dari Program"), 'red')
 
             print(pr.singleLine)
 
@@ -157,6 +158,10 @@ class LinkedList:
                     self.show()
                 elif choice == '5':
                     self.size()
+                elif choice == '0':
+                    pr.customPrint("{:^100}".format("Keluar dari sub-program Linked List..."), 'green')
+                    pr.pauseProgram(1)
+                    break
                 else:
                     print("{:^100}".format("Pilihan tidak valid!".upper()))
             except TypeError:

@@ -58,6 +58,7 @@ class Stack:
             pr.customPrint("{:<100}".format("3. Peek (Lihat data teratas stack)"), 'blue')
             pr.customPrint("{:<100}".format("4. Show (Lihat isi stack)"), 'blue')
             pr.customPrint("{:<100}".format("5. Size (Ukuran stack)"), 'blue')
+            pr.customPrint("{:<100}".format("0. Keluar Dari Program"), 'red')
             
             print(pr.singleLine)
             try:
@@ -75,6 +76,10 @@ class Stack:
                     self.showData()
                 elif choice == '5':
                     self.lengthData()
+                elif choice == '0':
+                    pr.customPrint("{:^100}".format("Keluar dari sub-program Stack..."), 'green')
+                    pr.pauseProgram(1)
+                    break
                 else:
                     print("{:^100}".format("Pilihan tidak valid!".upper()))
             except TypeError:

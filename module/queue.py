@@ -5,10 +5,10 @@ class Queue:
         self.__items: list = data
 
     @property
-    def getDataStack(self) -> list:
+    def getDataQueue(self) -> list:
         return self.__items
 
-    @getDataStack.setter
+    @getDataQueue.setter
     def enqueue(self, item: int):
         self.__items.append(item)  # Menambahkan item ke belakang antrian
         pr.customPrint("{:^100}".format(f"Ditambahkan [{item}] ke dalam Antrian"), 'blue')
@@ -52,6 +52,7 @@ class Queue:
             pr.customPrint("{:<100}".format("3. Peek (Lihat data depan Antrian)"), 'blue')
             pr.customPrint("{:<100}".format("4. Show (Lihat isi Antrian)"), 'blue')
             pr.customPrint("{:<100}".format("5. Size (Lihat Ukuran/Panjang Antrian)"), 'blue')
+            pr.customPrint("{:<100}".format("0. Keluar Dari Program"), 'red')
 
             print(pr.singleLine)
             try:
@@ -69,6 +70,10 @@ class Queue:
                     self.showData()
                 elif choice == '5':
                     self.size()
+                elif choice == '0':
+                    pr.customPrint("{:^100}".format("Keluar dari sub-program Queue..."), 'green')
+                    pr.pauseProgram(1)
+                    break
                 else:
                     print("{:^100}".format("Pilihan tidak valid!".upper()))
             except TypeError:
